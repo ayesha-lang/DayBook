@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+/* ---- Theme colors: light by default, dark follows the system ---- */
+:root {
+  --bg: #EBEEF2;
+  --surface: #FFFFFF;
+  --surface-2: #F3F5F8;
+  --ink: #11151B;
+  --muted: #5A6572;
+  --line: #DCE1E7;
+  --line-strong: #AEB7C2;
+  --accent: #2140D9;
+  --on-accent: #FFFFFF;
+  --work: #2140D9;
+  --personal: #B4470F;
+  --study: #0B7A6E;
+  --danger: #BE2A2A;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0E1217;
+    --surface: #161B22;
+    --surface-2: #1C222B;
+    --ink: #E7EBF0;
+    --muted: #96A1AE;
+    --line: #262E38;
+    --line-strong: #4A5563;
+    --accent: #7C93FF;
+    --on-accent: #0E1217;
+    --work: #8CA0FF;
+    --personal: #FFA070;
+    --study: #45D2BF;
+    --danger: #FF8A80;
+    color-scheme: dark;
+  }
+}
+
+/* ---- Turn the variables into Tailwind utilities (bg-page, text-ink, border-line ...) ---- */
+@theme inline {
+  --color-page: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-edge: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-onaccent: var(--on-accent);
+  --color-work: var(--work);
+  --color-personal: var(--personal);
+  --color-study: var(--study);
+  --color-danger: var(--danger);
+
+  --font-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", sans-serif;
+  --font-body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --animate-pop: pop 0.42s cubic-bezier(0.3, 1.6, 0.5, 1);
+  --animate-ring: ring 0.55s ease-out forwards;
+  @keyframes pop { 0% { transform: scale(1); } 40% { transform: scale(1.22); } 100% { transform: scale(1); } }
+  @keyframes ring { 0% { opacity: 0.7; transform: scale(1); } 100% { opacity: 0; transform: scale(2); } }
+}
+
+@layer base {
+  body {
+    @apply bg-page font-body text-base leading-[1.45] text-ink;
+  }
+  button { cursor: pointer; }
+  button:disabled { cursor: default; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+}
+
+/* Dragging a task: stop text selection */
+body.is-dragging { user-select: none; -webkit-user-select: none; cursor: grabbing; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+}
